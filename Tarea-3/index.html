@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de clientes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h2>Registro de Cliente</h2>
+        <form id="formCliente" onsubmit="return validarFormulario()">
+            
+            <!--cedula -->
+            <div class="campo">
+                <label for="cedula">Cedula (10 digitos):</label>
+                <input type="text" id="cedula" maxlength="10" placeholder="Ingrese su cedula">
+            </div>
+
+            <!--nombre -->
+            <div class="campo">
+                <label for="nombre">Nombre (max. 30 caracteres):</label>
+                <input type="text" id="nombre" maxlength="30" placeholder="Ingrese su nombre">
+            </div>
+            
+            <!--direccion -->
+            <div class="campo">
+                <label for="direccion">Direccion (max. 50 caracteres):</label>
+                <input type="text" id="direccion" maxlength="50" placeholder="Ingrese su direccion">
+            </div>
+
+            <!--celular -->
+            <div class="campo">
+                <label for="celular">Celular  (10 digitos):</label>
+                <input type="text" id="celular" maxlength="10" placeholder="Ingrese su celular">
+            </div>
+            
+            <!--correo -->
+            <div class="campo">
+                <label for="correo">Correo:</label>
+                <input type="text" id="correo" placeholder="Ingrese su correo">
+            </div>
+
+            <!--boton de enviar -->
+            <button type="reset" class="boton-reset">RESETEAR</button>
+            <button type="submit" class="boton-guardar">GUARDAR CLIENTE</button>
+
+        </form>
+    </div>
+
+    <script src="scrip.js"></script>
+</body>
+</html>
