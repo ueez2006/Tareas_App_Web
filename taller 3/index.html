@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor">
+        <form id="Calculadora" onsubmit="return validarCalculo()">
+        <div class="v1">
+            <input type="number" id="n1" placeholder="Ingrese un el valor #1" required>
+        </div>
+            
+        <div class="v2">
+            <input type="number" id="n2" placeholder="Ingrese un el valor #2" required>
+        </div>    
+
+        <button type="submit" class="calcular">calcular</button>
+    
+        </form>
+    </div>
+    
+    <script src="scrip.js"></script>
+</body>
+</html>
