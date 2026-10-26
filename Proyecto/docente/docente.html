@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Docente - ULEAM</title>
+    <link rel="stylesheet" href="style_docente.css">
+</head>
+<body>
+
+    <div class="contenedor-panel">
+        <!-- BARRA LATERAL IZQUIERDA -->
+        <aside class="barra-lateral">
+            <div class="logo-barra-lateral">
+                <img src="../pictures/Logo-Uleam.png" alt="Logo Uleam" class="imagen-logo-barra-lateral">
+            </div>
+            <nav class="menu-barra-lateral">
+                <a href="#" class="elemento-menu activo">📅 Mi Asistencia</a>
+            </nav>
+            <div class="pie-barra-lateral">
+                <div class="perfil-usuario" style="margin-bottom: 15px;">
+                    <span class="icono-usuario">👤</span>
+                    <div>
+                        <span id="nombre-docente" class="nombre-usuario">Docente</span>
+                        <small id="edificio-docente" style="display:block; color:#6b7280; font-size:11px;"></small>
+                        <small id="facultad-docente" style="display:block; color:#6b7280; font-size:11px;"></small>
+                    </div>
+                </div>
+                <!-- Botones de Acción del Usuario -->
+                <div class="panel-acciones-usuario" style="display: flex; flex-direction: column; gap: 5px;">
+                    <button type="button" class="btn-accion-barra-lateral btn-seguridad" onclick="abrirModalPassword()">🔒 Cambiar Clave</button>
+                    <button type="button" class="btn-accion-barra-lateral btn-cerrar-sesion" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL DERECHO -->
+        <main class="contenido-principal">
+            <header class="encabezado-bienvenida">
+                <div>
+                    <h2 id="titulo-bienvenida">Bienvenido, Docente</h2>
+                    <small style="color: #666;">Control de asistencia y solicitudes académicas</small>
+                </div>
+                
+                <div class="acciones-encabezado" style="display: flex; gap: 10px; align-items: center;">
+                    <!-- Botón para Pedir Permiso de Antemano -->
+                    <button type="button" class="btn-permiso-anticipado" onclick="abrirModalPermisoAnticipado()">
+                        ➕ Pedir Permiso Anticipado
+                    </button>
+
+                    <!-- Buzón de Solicitudes Enviadas con Contador Badge -->
+                    <button type="button" class="btn-buzon-flotante" onclick="abrirBuzonDocente()" title="Ver estado de solicitudes">
+                        📥 Mis Solicitudes <span id="contador-solicitudes-docente" class="badge-notificacion">0</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- BARRA DE LEYENDA -->
+            <div class="barra-superior-leyenda">
+                <div class="cuadro-leyenda">
+                    <div class="item-leyenda"><span class="indicador-asistio">✔️</span> <strong>Asistió</strong></div>
+                    <div class="item-leyenda"><span class="indicador-justificado">≡</span> <strong>Justificado</strong></div>
+                    <div class="item-leyenda"><span class="indicador-falta">❌</span> <strong>No asistió</strong></div>
+                </div>
+            </div>
+
+            <!-- TARJETA DEL CALENDARIO DE ASISTENCIA -->
+            <div class="tarjeta-calendario">
+                <div class="cabecera-calendario">
+                    <button class="btn-mes-nav" onclick="cambiarMes(-1)">◀ Anterior</button>
+                    <h3 id="etiqueta-mes-año">Octubre 2026</h3>
+                    <button class="btn-mes-nav" onclick="cambiarMes(1)">Siguiente ▶</button>
+                </div>
+
+                <div class="dias-semana">
+                    <div>Dom</div><div>Lun</div><div>Mar</div><div>Mié</div><div>Jue</div><div>Vie</div><div>Sáb</div>
+                </div>
+
+                <!-- Cuadrícula interactiva -->
+                <div id="grid-calendario-docente" class="dias-cuadricula"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL 1: ENVIAR JUSTIFICACIÓN / PERMISO ANTICIPADO -->
+    <div id="modal-solicitud-justificacion" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal-formulario">
+            <div class="encabezado-modal">
+                <h3 id="titulo-modal-solicitud">Enviar Solicitud / Justificación</h3>
+                <span id="fecha-solicitud-seleccionada" class="badge-fecha-solicitud">Fecha: --/--/----</span>
+            </div>
+            
+            <form id="form-enviar-justificacion">
+                <!-- Selector de fecha solo visible para permisos anticipados -->
+                <div class="campo-entrada" id="contenedor-campo-fecha-futura" style="display: none;">
+                    <label for="fecha-permiso-futuro">Seleccionar Fecha del Permiso</label>
+                    <input type="date" id="fecha-permiso-futuro">
+                </div>
+
+                <div class="campo-entrada">
+                    <label for="motivo-ausencia">Motivo de la Ausencia / Solicitud</label>
+                    <textarea id="motivo-ausencia" rows="4" placeholder="Proporcione una razón detallada..." required></textarea>
+                </div>
+
+                <div class="campo-entrada">
+                    <label for="archivo-adjunto">Documentos de Soporte (Opcional)</label>
+                    <input type="file" id="archivo-adjunto" accept=".pdf,.png,.jpg,.jpeg">
+                    <small class="texto-ayuda">Adjunte certificado médico, citación u oficio formal.</small>
+                </div>
+
+                <div class="acciones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModalJustificacion()">Cancelar</button>
+                    <button type="submit" class="btn-confirmar">Enviar Solicitud</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: BUZÓN DE SOLICITUDES ENVIADAS (ESTADO) -->
+    <div id="modal-buzon-docente" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal-buzon">
+            <div class="encabezado-modal-buzon">
+                <h3>📥 Mis Solicitudes Enviadas a Secretaría</h3>
+                <button class="btn-cerrar-buzon" onclick="cerrarBuzonDocente()">❌ Cerrar</button>
+            </div>
+            <div class="cuerpo-modal-buzon">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha Falta / Permiso</th>
+                            <th>Motivo Enviado</th>
+                            <th>Estado de Revisión</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-mis-solicitudes">
+                        <!-- Carga dinámica JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: CAMBIO DE CONTRASEÑA -->
+    <div id="modal-cambiar-contrasena" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal" style="width: 340px;">
+            <h3>Cambiar Contraseña</h3>
+            <form id="form-cambiar-contrasena">
+                <div class="campo-entrada">
+                    <label>Contraseña Actual</label>
+                    <input type="password" id="contrasena-actual" required>
+                </div>
+                <div class="campo-entrada">
+                    <label>Nueva Contraseña (Mín. 8 caracteres)</label>
+                    <input type="password" id="contrasena-nueva" required>
+                </div>
+                <div class="acciones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModalPassword()">Cancelar</button>
+                    <button type="submit" class="btn-confirmar" style="background-color: #e30613;">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="docente.js"></script>
+</body>
+</html>

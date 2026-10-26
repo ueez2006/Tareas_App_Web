@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Usuarios ULEAM</title>
+    <link rel="stylesheet" href="styleAdmin.css">
+</head>
+<body>
+    <div class="contenedor-panel">
+        <aside class="barra-lateral">
+            <div class="logo-barra-lateral">
+                <img src="../pictures/Logo-Uleam.png" alt="Logo Uleam" class="imagen-logo-barra-lateral">
+            </div>
+            <nav class="menu-barra-lateral">
+                <a href="admin_facultades.html" class="elemento-menu">⚙️ Facultades</a>
+                <a href="admin_usuarios.html" class="elemento-menu activo">👤 Usuarios</a>
+            </nav>
+            
+            <!-- 🛠️ SECCIÓN INFERIOR: PERFIL Y BOTONES DE ACCIÓN (SEGURIDAD Y SALIDA) -->
+            <div class="pie-barra-lateral">
+                <div class="perfil-usuario" style="margin-bottom: 15px;">
+                    <span class="icono-usuario">👤</span>
+                    <div>
+                        <span class="nombre-usuario">Administrador</span>
+                        <small style="display:block; color:#6b7280; font-size:11px;">Gestión General</small>
+                    </div>
+                </div>
+                <div class="panel-acciones-usuario" style="display: flex; flex-direction: column; gap: 5px;">
+                    <button type="button" class="btn-accion-barra-lateral btn-seguridad" onclick="abrirModalPassword()">🔒 Cambiar Clave</button>
+                    <button type="button" class="btn-accion-barra-lateral btn-cerrar-sesion" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="contenido-principal">
+            <header class="encabezado-principal">
+                <h2>Gestión de Personal - Módulo Administrador</h2>
+                <button class="boton-administracion" onclick="abrirModalUsuario()">➕ Registrar Usuario</button>
+            </header>
+
+            <!-- TABLA: DOCENTES -->
+            <div class="contenedor-tablas" style="margin-bottom: 30px;">
+                <h3>📋 Personal Docente</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cédula (CI)</th>
+                            <th>Facultad</th>
+                            <th>Edificio Asignado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-docentes-admin"></tbody>
+                </table>
+            </div>
+
+            <!-- TABLA: SECRETARIOS -->
+            <div class="contenedor-tablas">
+                <h3>🔑 Personal de Secretaría</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Cédula (CI)</th>
+                            <th>Facultad</th>
+                            <th>Edificio Asignado (Control)</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-secretarios-admin"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Ventana de registro directo por edificio -->
+    <div id="modal-usuario" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal">
+            <h3>Datos personales</h3>
+            <form id="form-crear-usuario">
+                <div class="campo-entrada">
+                    <label>Nombre</label>
+                    <input type="text" id="usr-nombre" required>
+                </div>
+                <div class="campo-entrada">
+                    <label>CI</label>
+                    <input type="text" id="usr-ci" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required>
+                </div>
+                <div class="campo-entrada">
+                    <label>Correo</label>
+                    <input type="email" id="usr-correo" required>
+                </div>
+                <div class="campo-entrada">
+                    <label>Rol del Sistema</label>
+                    <select id="usr-rol" required>
+                        <option value="" disabled selected>Seleccione un rol...</option>
+                        <option value="Docente">Docente</option>
+                        <option value="Secretario/a">Secretario/a</option>
+                    </select>
+                </div>
+
+                <div class="campo-entrada">
+                    <label for="usr-edificio">Asignar Edificio / Campus</label>
+                    <select id="usr-edificio" required>
+                        <option value="" disabled selected>Seleccione Edificio...</option>
+                    </select>
+                </div>
+
+                <div class="campo-entrada">
+                    <label for="usr-facultad">Facultad asignada automáticamente</label>
+                    <input type="text" id="usr-facultad" placeholder="Se completa al elegir el edificio" readonly required>
+                </div>
+
+                <div class="acciones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModal('modal-usuario')">Cancelar</button>
+                    <button type="submit" class="btn-confirmar">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE CAMBIO DE CONTRASEÑA PARA EL ADMIN -->
+    <div id="modal-cambiar-contrasena" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal" style="width: 340px;">
+            <h3>Cambiar Contraseña</h3>
+            <form id="form-cambiar-contrasena">
+                <div class="campo-entrada">
+                    <label>Contraseña Actual</label>
+                    <input type="password" id="contrasena-actual" required>
+                </div>
+                <div class="campo-entrada">
+                    <label>Nueva Contraseña (Mín. 8 caracteres)</label>
+                    <input type="password" id="contrasena-nueva" required>
+                </div>
+                <div class="acciones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModalPassword()">Cancelar</button>
+                    <button type="submit" class="btn-confirmar" style="background-color: #e30613;">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

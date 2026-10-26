@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo Secretaría - ULEAM</title>
+    <link rel="stylesheet" href="style_secretaria.css">
+</head>
+<body>
+
+    <div class="contenedor-panel">
+        <!-- BARRA LATERAL IZQUIERDA -->
+        <aside class="barra-lateral">
+            <div class="logo-barra-lateral">
+                <img src="../pictures/Logo-Uleam.png" alt="Logo Uleam" class="imagen-logo-barra-lateral">
+            </div>
+            <nav class="menu-barra-lateral">
+                <a href="#" class="elemento-menu activo">📋 Tomar Asistencia</a>
+            </nav>
+            <div class="pie-barra-lateral">
+                <div class="perfil-usuario" style="margin-bottom: 15px;">
+                    <span class="icono-usuario">👤</span>
+                    <div>
+                        <span id="nombre-secretario" class="nombre-usuario">Secretario/a</span>
+                        <small id="edificio-secretario" style="display:block; color:#6b7280; font-size:11px;"></small>
+                        <small id="facultad-secretario" style="display:block; color:#6b7280; font-size:11px;"></small>
+                    </div>
+                </div>
+                <!-- Botones de Acción del Usuario -->
+                <div class="panel-acciones-usuario" style="display: flex; flex-direction: column; gap: 5px;">
+                    <button type="button" class="btn-accion-barra-lateral btn-seguridad" onclick="abrirModalPassword()">🔒 Cambiar Clave</button>
+                    <button type="button" class="btn-accion-barra-lateral btn-cerrar-sesion" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL DERECHO -->
+        <main class="contenido-principal">
+            <section class="fila-superior">
+                <div class="cuadro-leyenda">
+                    <div>✔️ <strong>Asistió</strong></div>
+                    <div>≡ <strong>Justificado</strong></div>
+                    <div>❌ <strong>No asistió</strong></div>
+                </div>
+                
+                <div class="carrusel-meses">
+                    <label for="filtro-fecha-dia" style="font-weight: 600; margin-right: 8px; font-size: 14px; color: #555;">Fecha:</label>
+                    <input type="date" id="filtro-fecha-dia" class="campo-fecha" onchange="cambiarFechaDia()">
+                </div>
+            </section>
+
+            <section class="barra-filtros">
+                <input type="text" id="input-busqueda" placeholder="🔍 Buscar docente por nombre..." oninput="filtrarDocentes()">
+                <div class="filtros-botones" style="display: flex; align-items: center; gap: 10px;">
+                    <button class="btn-filtro activo" onclick="cambiarFiltroEstado('todos', event)">Todos</button>
+                    <button class="btn-filtro" onclick="cambiarFiltroEstado('Asistió', event)">Asistió</button>
+                    <button class="btn-filtro" onclick="cambiarFiltroEstado('No asistió', event)">No asistió</button>
+                    <button class="btn-filtro" onclick="cambiarFiltroEstado('Justificado', event)">Justificado</button>
+                    
+                    <!-- ======================================================================= -->
+                    <!-- 🛠️ CAMBIO INTERFAZ: SE AGREGÓ EL BOTÓN FLOTANTE CON CONTADOR DE ALERTAS -->
+                    <!-- ======================================================================= -->
+                    <button type="button" class="btn-buzon-flotante" onclick="abrirBuzonFlotante()" title="Ver Solicitudes">
+                        📥 Solicitudes <span id="contador-notificaciones" class="badge-notificacion">0</span>
+                    </button>
+                    <!-- ======================================================================= -->
+                </div>
+            </section>
+
+            <!-- TABLA 1: CONTROL DE ASISTENCIA DIARIA -->
+            <div class="contenedor-tablas">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Asistencia</th>
+                            <th>Nombre</th>
+                            <th>Cédula (CI)</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-docentes-edificio"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <div id="modal-cambiar-contrasena" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal" style="width: 340px;">
+            <h3>Cambiar Contraseña</h3>
+            <form id="form-cambiar-contrasena">
+                <div class="campo-entrada">
+                    <label for="contrasena-actual">Contraseña Actual</label>
+                        <input type="password" id="contrasena-actual" required>
+                        <button type="button" id="btn-mostrar-clave1" class="alternar-visibilidad-contrasena" title="Mostrar/Ocultar contraseña">👁️</button>     
+    
+                </div>
+                <div class="campo-entrada">
+                    <label for="contrasena-nueva">Nueva Contraseña (Mín. 8 caracteres)</label>
+                    <input type="password" id="contrasena-nueva" required>
+                    <button type="button" id="btn-mostrar-clave" class="alternar-visibilidad-contrasena" title="Mostrar/Ocultar contraseña">👁️</button> 
+                </div>
+                <div class="acciones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModalPassword()">Cancelar</button>
+                    <button type="submit" class="btn-confirmar";>Actualizar</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    
+    <!-- MODAL DE ACCIONES MANUALES DE ASISTENCIA -->
+    <div id="modal-asistencia" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal-lateral">
+            <h3>Actualizar Estado</h3>
+            <p id="modal-docente-nombre" style="font-weight: bold; margin-bottom: 15px; color:#555;"></p>
+            <div class="campo-entrada">
+                <label>Seleccionar Estado</label>
+                <select id="select-nuevo-estado">
+                    <option value="Asistió">✔️ Asistió</option>
+                    <option value="No asistió">❌ No asistió</option>
+                    <option value="Justificado">≡ Justificado</option>
+                </select>
+            </div>
+            <div class="campo-entrada">
+                <label>Observaciones</label>
+                <textarea id="texto-observacion" rows="4" placeholder="Detalles de la justificación..."></textarea>
+            </div>
+            <div class="acciones-modal-lateral">
+                <button class="btn-salir" onclick="cerrarModalAsistencia()">Salir</button>
+                <button class="btn-guardar" onclick="guardarEstadoAsistencia()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Buzon -->
+    <div id="modal-buzon-flotante" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal-buzon">
+            <div class="encabezado-modal-buzon">
+                <h3>📥 Solicitudes Pendientes de Revisión</h3>
+                <button class="btn-cerrar-buzon" onclick="cerrarBuzonFlotante()">❌ Cerrar</button>
+            </div>
+            <div class="cuerpo-modal-buzon">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Docente</th>
+                            <th>Fecha</th>
+                            <th>Motivo Enviado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-buzon-solicitudes">
+                        <!-- Las filas dinámicas se cargan desde el script -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- ===================================================================== -->
+
+    <script src="secretaria.js"></script>
+</body>
+</html>

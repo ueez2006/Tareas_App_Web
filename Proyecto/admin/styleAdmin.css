@@ -1,0 +1,272 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Contenedor principal dividido */
+.contenedor-panel {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Menú lateral izquierdo fijo */
+.barra-lateral {
+    width: 260px;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.logo-barra-lateral {
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+.imagen-logo-barra-lateral {
+    max-width: 140px;
+    height: auto;
+}
+
+.menu-barra-lateral {
+    flex: 1;
+    padding: 20px 10px;
+}
+
+.elemento-menu {
+    display: block;
+    padding: 12px 15px;
+    color: #555;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.elemento-menu.activo {
+    background-color: #fcedee;
+    color: #E30613;
+}
+
+.pie-barra-lateral {
+    padding: 15px 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.perfil-usuario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+/* Área de contenido del panel derecho */
+.contenido-principal {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.encabezado-principal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.encabezado-principal h2 {
+    color: #E30613;
+    font-size: 26px;
+}
+
+/* Botones de acción de administración */
+.boton-administracion {
+    background-color: #E30613;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.boton-administracion:hover {
+    background-color: #860000;
+}
+
+/* Contenedores de tablas */
+.contenedor-tablas {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.contenedor-tablas h3 {
+    margin-bottom: 15px;
+    color: #444;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #f8f9fa;
+    color: #555;
+    font-weight: 700;
+}
+
+.boton-eliminar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estructura de Ventanas Emergentes (Modales) */
+.fondo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.tarjeta-modal {
+    background-color: rgb(245, 4, 4);
+    padding: 25px;
+    border-radius: 12px;
+    width: 380px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+
+.tarjeta-modal h3 {
+    margin-bottom: 20px;
+    color: #E30613;
+}
+
+.campo-entrada {
+    margin-bottom: 15px;
+}
+
+.campo-entrada label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.campo-entrada input, .campo-entrada select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.acciones-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-cancelar {
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-confirmar {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-confirmar:hover {
+    background-color: #1d4ed8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #f4f6f9;
+    height: 100vh;
+    overflow: hidden;
+}
+.contenedor-panel { display: flex; width: 100%; height: 100vh; }
+.barra-lateral {
+    width: 260px; background-color: #ffffff;
+    border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; padding: 20px 0;
+}
+.logo-barra-lateral { padding: 0 20px 20px 20px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+.imagen-logo-barra-lateral { max-width: 140px; height: auto; }
+.menu-barra-lateral { flex: 1; padding: 20px 10px; }
+.elemento-menu {
+    display: block; padding: 12px 15px; color: #555;
+    text-decoration: none; font-weight: 600; border-radius: 8px; margin-bottom: 5px;
+}
+.elemento-menu.activo { background-color: #fcedee; color: #E30613; }
+.pie-barra-lateral { padding: 15px 20px; border-top: 1px solid #f0f0f0; }
+.perfil-usuario { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.contenido-principal { flex: 1; padding: 30px; overflow-y: auto; }
+.encabezado-principal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.encabezado-principal h2 { color: #E30613; font-size: 26px; }
+.boton-administracion {
+    background-color: #E30613; color: white; border: none; padding: 10px 18px;
+    border-radius: 8px; cursor: pointer; font-weight: 600;
+}
+.contenedor-tablas { background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th, td { padding: 12px 15px; border-bottom: 1px solid #eee; }
+th { background-color: #f8f9fa; color: #555; }
+.boton-eliminar { background: none; border: none; cursor: pointer; }
+.fondo-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center; z-index: 9999;
+}
+.tarjeta-modal { background-color: white; padding: 25px; border-radius: 12px; width: 380px; box-shadow: 0 5px 20px rgba(0,0,0,0.25); }
+.tarjeta-modal h3 { margin-bottom: 20px; color: #333; font-weight: bold; }
+.campo-entrada { margin-bottom: 15px; }
+.campo-entrada label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+.campo-entrada input, .campo-entrada select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; outline: none; }
+.acciones-modal { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.btn-cancelar { background-color: #e0e0e0; color: #333; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+.btn-confirmar { background-color: #2563eb; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+

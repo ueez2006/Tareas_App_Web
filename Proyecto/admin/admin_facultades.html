@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración - Facultades ULEAM</title>
+    <link rel="stylesheet" href="styleAdmin.css">
+</head>
+<body>
+    <div class="contenedor-panel">
+        <aside class="barra-lateral">
+            <div class="logo-barra-lateral">
+                <img src="../pictures/Logo-Uleam.png" alt="Logo Uleam" class="imagen-logo-barra-lateral">
+            </div>
+            <nav class="menu-barra-lateral">
+                <a href="admin_facultades.html" class="elemento-menu activo">⚙️ Facultades</a>
+                <a href="admin_usuarios.html" class="elemento-menu">👤 Usuarios</a>
+            </nav>
+
+            <!-- 🛠️ SECCIÓN INFERIOR: PERFIL Y BOTONES DE ACCIÓN (SEGURIDAD Y SALIDA) -->
+            <div class="pie-barra-lateral">
+                <div class="perfil-usuario" style="margin-bottom: 15px;">
+                    <span class="icono-usuario">👤</span>
+                    <div>
+                        <span class="nombre-usuario">Administrador</span>
+                        <small style="display:block; color:#6b7280; font-size:11px;">Gestión General</small>
+                    </div>
+                </div>
+                <div class="panel-acciones-usuario" style="display: flex; flex-direction: column; gap: 5px;">
+                    <button type="button" class="btn-accion-barra-lateral btn-seguridad" onclick="abrirModalPassword()">🔒 Cambiar Clave</button>
+                    <button type="button" class="btn-accion-barra-lateral btn-cerrar-sesion" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="contenido-principal">
+            <header class="encabezado-principal">
+                <h2>Gestión de Facultades e Infraestructura</h2>
+                <button class="boton-administracion" onclick="abrirModal('modal-facultad')">➕ Crear Facultad</button>
+            </header>
+
+            <div class="contenedor-tablas">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Facultad</th>
+                            <th>Edificio / Campus</th>
+                            <th>Carreras Ofertadas</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-facultades-admin"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de facultad con agregador dinámico de carreras -->
+    <div id="modal-facultad" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal">
+            <h3>Crear Nueva Facultad</h3>
+            <form id="form-crear-facultad">
+                <div class="campo-entrada">
+                    <label>Nombre de la Facultad</label>
+                    <input type="text" id="facultad-nombre" placeholder="Ej: FCVT" required>
+                </div>
+                <div class="campo-entrada">
+                    <label>Edificio Asignado</label>
+                    <input type="text" id="facultad-edificio" placeholder="Ej: Edificio B16" required>
+                </div>
+
+                <div class="campo-entrada">
+                    <label>Añadir Carreras de la Facultad</label>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="text" id="input-carrera-temporal" placeholder="Ej: Software">
+                        <button type="button" class="btn-secundario" onclick="agregarCarreraALista()">➕</button>
+                    </div>
+                    <!-- Lista visual de carreras acumuladas -->
+                    <ul id="lista-carreras-temporales" style="margin-top: 10px; padding-left: 20px; font-size: 13px; color: #555;"></ul>
+                </div>
+
+                <div class="acciones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModal('modal-facultad')">Cancelar</button>
+                    <button type="submit" class="btn-confirmar">Aceptar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DE CAMBIO DE CONTRASEÑA PARA EL ADMIN -->
+    <div id="modal-cambiar-contrasena" class="fondo-modal" style="display: none;">
+        <div class="tarjeta-modal" style="width: 340px;">
+            <h3>Cambiar Contraseña</h3>
+            <form id="form-cambiar-contrasena">
+                <div class="campo-entrada">
+                    <label>Contraseña Actual</label>
+                    <input type="password" id="contrasena-actual" required>
+                </div>
+                <div class="campo-entrada">
+                    <label>Nueva Contraseña (Mín. 8 caracteres)</label>
+                    <input type="password" id="contrasena-nueva" required>
+                </div>
+                <div class="acciones-modal">
+                    <button type="button" class="btn-cancelar" onclick="cerrarModalPassword()">Cancelar</button>
+                    <button type="submit" class="btn-confirmar" style="background-color: #e30613;">Actualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

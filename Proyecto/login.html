@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Proyecto</title>
+<link rel="preconnect" href="https://googleapis.com">
+<link rel="preconnect" href="https://gstatic.com" crossorigin>
+<link href="https://googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="contenedor">
+        <form id="formulario-inicio-sesion">
+        <div class="encabezado">
+            <div class="contenedor-logo">
+                <img src="pictures/Logo-Uleam.png" alt="Logo de la ULEAM" class="logo-uleam">
+            </div>
+            <h2>LOGIN</h2>
+        </div>
+      
+        <div class="grupo-campos">
+            <input type="email" id="correo-electronico" placeholder="Correo electrónico">
+            <span class="mensaje-error" id="error-correo"></span>
+        </div>
+        
+        <div class="grupo-campos">
+            <div class="contenedor-contrasena">
+                <input type="password" id="contrasena" placeholder="Contraseña">
+                
+                <!-- 👁️ BOTÓN CON ICONO CLÁSICO VECTORIAL (SVG) -->
+                <button type="button" id="btn-mostrar-clave" class="alternar-visibilidad-contrasena" title="Mostrar/Ocultar contraseña">👁️</button> 
+            </div>
+            <span class="mensaje-error" id="error-contrasena"></span>
+        </div>
+
+        <button type="submit">Acceder</button>
+        </form>
+        <!-- Espacio opcional para mostrar mensajes de error -->
+        <p id="mensaje-error" style="color: red; display: none;"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
