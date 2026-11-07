@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatos semiestrucurados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <header>
+            <h1>Registro de estudiantes</h1>
+        </header>
+        <main>
+            <section class="seccion-registro">
+                <h2>Añadir estudiantes</h2>
+                <form id="formulario-registro">
+                    <div class="grupo-formulario">
+                        <label for="cedula">Cedula del estudiante</label>
+                        <input type="text" id="ci" required placeholder="Ej 0123456789">
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="apellidos">Apellidos del estudiante</label>
+                        <input type="text" id="apellidos" required placeholder="Ej Garcia Mendoza">
+                    </div>
+
+                    <div class="grupo-formulario">
+                        <label for="nombres">Nombres del estudiante</label>
+                        <input type="text" id="nombre" required placeholder="Ej Juan Jose">
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="direccion">Direccion del estudiante</label>
+                        <input type="text" id="direccion" required placeholder="Ej Manta calle #">
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="telefono">Telefono del estudiante</label>
+                        <input type="tel" id="telefono" required placeholder="Ej: 0987654321">
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="correo">Coreo del estudiante</label>
+                        <input type="email" id="correo" required placeholder="Ej: estudiante@email.com">
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="facultad">Facultad del estudiante</label>
+                        <input type="text" id="facultad" required placeholder="Ej: FCVT">
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="nivel">Nivel del estudiante</label>
+                        <input type="number" id="nivel" required placeholder="Ej: 4">
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="paralelo">Paralelo del estudiante</label>
+                        <input type="text" id="paralelo" required placeholder="Ej: A">
+                    </div>
+                    <button type="submit" id="b-guardar">Guardar registro</button>
+                </form>
+            </section>
+            <section class="tabla">
+                <h2>Lista estudiantes</h2>
+                <div class="tabla-responsiva">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CI</th>
+                                <th>Apellidos</th>
+                                <th>Nombres</th>
+                                <th>Facultad</th>
+                                <th>Nivel</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpo-tabla">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
